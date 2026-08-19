@@ -28,7 +28,7 @@
   border-top-color: var(--success);
 }
 .task-card:hover { box-shadow: 10px 10px 0 var(--shadow); transform: translate(-3px, -3px); }
-.task-card--due-highlight { animation: due-task-highlight 0.6s ease-in-out; }
+.task-card--due-highlight { animation: due-task-highlight 0.9s ease-in-out; }
 
 @keyframes due-task-highlight {
   0%, 50%, 100% {
