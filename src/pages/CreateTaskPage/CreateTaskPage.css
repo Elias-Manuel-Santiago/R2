@@ -1,0 +1,61 @@
+.create-task-layout { display: grid; grid-template-columns: minmax(0, 1.45fr) minmax(320px, 0.75fr); align-items: start; gap: 2rem; }
+.task-form { min-width: 0; padding: clamp(1.25rem, 5vw, 2.5rem); border: 3px solid var(--border); border-radius: 4px; background: var(--surface); box-shadow: 9px 9px 0 var(--shadow); }
+.form-field { display: block; margin-bottom: 1.6rem; }
+.form-field > span, .form-field > label { display: block; margin-bottom: 0.55rem; font-weight: 900; text-transform: uppercase; }
+.form-field input, .form-field textarea { display: block; width: 100%; border: 2px solid var(--border); border-radius: 2px; padding: 0.85rem; color: var(--text); background: var(--background); resize: vertical; }
+.form-field input::placeholder, .form-field textarea::placeholder { color: var(--text); opacity: 0.55; }
+.form-field small { display: block; margin-top: 0.45rem; }
+.form-field input[aria-invalid="true"] { border-color: var(--accent); box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent) 35%, transparent); }
+.task-suggestions { margin-top: 0.85rem; border: 2px solid var(--border); background: var(--surface-muted); box-shadow: 4px 4px 0 var(--shadow); }
+.task-suggestions__heading { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; padding: 0.75rem 0.85rem; border-bottom: 2px dashed var(--accent); }
+.task-suggestions__heading strong { font-size: 0.82rem; text-transform: uppercase; }
+.task-suggestions__heading span { font-size: 0.72rem; font-weight: 700; text-align: right; }
+.task-suggestions ul { display: grid; gap: 0.5rem; margin: 0; padding: 0.65rem; list-style: none; }
+.task-suggestion { display: grid; min-height: 3.5rem; min-width: 0; grid-template-columns: minmax(0, 1fr) auto auto auto; align-items: center; gap: 0.85rem; padding: 0.7rem 0.8rem; border: 2px solid var(--border); color: var(--text); background: var(--surface); text-decoration: none; transition: transform 0.15s, box-shadow 0.15s, background-color 0.15s; }
+.task-suggestion:hover { background: var(--background); box-shadow: 3px 3px 0 var(--shadow); transform: translate(-1px, -1px); }
+.task-suggestion--exact { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, var(--surface)); }
+.task-suggestion__title { min-width: 0; overflow: hidden; font-weight: 900; text-overflow: ellipsis; text-transform: uppercase; white-space: nowrap; }
+.task-suggestion time { font-size: 0.75rem; font-weight: 900; white-space: nowrap; }
+.task-suggestion__arrow { font-size: 1.2rem; font-weight: 900; }
+.duplicate-title-message { margin: 0.85rem 0 0; padding: 0.75rem 0.85rem; border-left: 5px solid var(--accent); color: var(--text); background: color-mix(in srgb, var(--accent) 16%, var(--surface)); font-weight: 900; line-height: 1.45; }
+.task-form .button:disabled { opacity: 0.5; box-shadow: none; transform: none; cursor: not-allowed; }
+.visually-hidden { position: absolute !important; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+.form-check { display: flex; align-items: flex-start; gap: 0.8rem; padding: 1rem; border: 2px dashed var(--accent); cursor: pointer; }
+.form-check input { width: 1.25rem; height: 1.25rem; margin: 0.1rem 0 0; accent-color: var(--accent); }
+.form-check span { display: flex; flex-direction: column; gap: 0.2rem; line-height: 1.4; }
+.task-form__actions { display: flex; gap: 1rem; margin-top: 2rem; }
+.quick-tasks { min-width: 0; padding: 1.25rem; border: 3px solid var(--border); border-radius: 4px; background: var(--surface); box-shadow: 7px 7px 0 var(--shadow); }
+.quick-tasks__heading { margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 2px dashed var(--accent); }
+.quick-tasks__heading > span { color: var(--accent); font-size: 0.72rem; font-weight: 900; letter-spacing: 0.08em; text-transform: uppercase; }
+.quick-tasks__heading h2 { margin: 0.25rem 0 0; font-size: clamp(1.25rem, 3vw, 1.55rem); text-transform: uppercase; }
+.quick-tasks__heading p { margin: 0.65rem 0 0; font-size: 0.82rem; line-height: 1.5; }
+.quick-tasks__list { display: grid; gap: 1rem; margin: 0; padding: 0; list-style: none; }
+.quick-task { min-width: 0; padding: 1rem; border: 2px solid var(--border); border-radius: 3px; background: var(--background); box-shadow: 4px 4px 0 var(--shadow); }
+.quick-task__top { display: flex; min-width: 0; align-items: flex-start; justify-content: space-between; gap: 0.75rem; }
+.quick-task h3 { min-width: 0; margin: 0; font-size: 1rem; line-height: 1.25; overflow-wrap: anywhere; text-transform: uppercase; }
+.quick-task > p { display: -webkit-box; margin: 0.7rem 0 1rem; overflow: hidden; font-size: 0.82rem; line-height: 1.45; -webkit-box-orient: vertical; -webkit-line-clamp: 3; }
+.quick-task__create { width: 100%; }
+.quick-task__duplicate-notice { display: flex; align-items: stretch; gap: 0.45rem; margin: 0 0 0.8rem; }
+.quick-task__duplicate-message { display: grid; min-width: 0; flex: 1; place-items: center; padding: 0.6rem; color: #fff; background: #c9342b; font-size: 0.78rem; text-align: center; text-transform: uppercase; }
+.quick-task__duplicate-link { display: grid; width: 2.35rem; flex: 0 0 2.35rem; place-items: center; border: 2px solid #c9342b; border-radius: 50%; color: #fff; background: #c9342b; box-shadow: 2px 2px 0 var(--shadow); font-size: 1rem; font-weight: 900; cursor: pointer; }
+.quick-task__duplicate-link:hover { color: #c9342b; background: var(--surface); transform: translate(-1px, -1px); }
+.quick-task--duplicate { animation: quick-task-duplicate 0.6s ease-in-out; }
+.quick-tasks__empty { margin: 0; padding: 1.5rem 1rem; border: 2px dashed var(--border); background: var(--background); font-weight: 700; line-height: 1.55; text-align: center; }
+
+@keyframes quick-task-duplicate {
+  0%, 50%, 100% { border-color: var(--border); box-shadow: 4px 4px 0 var(--shadow); }
+  25%, 75% { border-color: #ef3f34; box-shadow: 7px 7px 0 #ef3f34; }
+}
+
+@media (max-width: 900px) {
+  .create-task-layout { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 620px) {
+  .task-suggestions__heading { align-items: flex-start; flex-direction: column; gap: 0.2rem; }
+  .task-suggestions__heading span { text-align: left; }
+  .task-suggestion { grid-template-columns: minmax(0, 1fr) auto; gap: 0.45rem 0.75rem; }
+  .task-suggestion .status-badge, .task-suggestion time { grid-row: 2; }
+  .task-suggestion time { justify-self: end; }
+  .task-suggestion__arrow { grid-column: 2; grid-row: 1; }
+}
+@media (max-width: 520px) { .task-form__actions { flex-direction: column; } }

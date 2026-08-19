@@ -1,0 +1,31 @@
+.page-heading {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+.page-heading__copy { max-width: 650px; }
+.page-heading__eyebrow {
+  display: inline-block;
+  margin-bottom: 0.75rem;
+  padding: 0.3rem 0.55rem;
+  color: var(--surface);
+  background: var(--accent);
+  font-size: 0.75rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.page-heading h1 {
+  margin: 0;
+  font-size: clamp(2.3rem, 9vw, 4.5rem);
+  line-height: 0.95;
+  overflow-wrap: anywhere;
+  text-transform: uppercase;
+}
+.page-heading p { margin: 1rem 0 0; font-size: clamp(0.95rem, 2vw, 1.1rem); line-height: 1.6; }
+.page-heading__actions { flex: 0 0 auto; }
+@media (max-width: 700px) {
+  .page-heading { align-items: stretch; flex-direction: column; gap: 1.25rem; }
+}
