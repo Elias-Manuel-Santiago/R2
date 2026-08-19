@@ -1,5 +1,4 @@
 import { useState, type ReactNode } from 'react'
-import { initialTasks } from '../../data/initialTasks'
 import type { NewTask, QuickTask, Task, TaskStatus } from '../../types/Task'
 import { normalizeTitle } from '../../utils/normalizeTitle'
 import { TaskContext } from './taskContextDefinition'
@@ -16,7 +15,7 @@ function getDefaultDueDate(createdAt: string) {
 function loadTasks() {
   try {
     const savedTasks = localStorage.getItem(STORAGE_KEY)
-    if (!savedTasks) return initialTasks
+    if (!savedTasks) return []
 
     const parsedTasks = JSON.parse(savedTasks) as Array<Task & { completed?: boolean }>
     return parsedTasks.map(({ completed, ...task }) => ({
@@ -26,7 +25,7 @@ function loadTasks() {
       status: task.status ?? (completed ? 'completed' : 'pending'),
     }))
   } catch {
-    return initialTasks
+    return []
   }
 }
 
