@@ -1,3 +1,4 @@
+/* Encabezado de página con texto y acciones alineados en escritorio. */
 .page-heading {
   display: flex;
   align-items: flex-end;
@@ -26,6 +27,7 @@
 }
 .page-heading p { margin: 1rem 0 0; font-size: clamp(0.95rem, 2vw, 1.1rem); line-height: 1.6; }
 .page-heading__actions { flex: 0 0 auto; }
+/* En móvil las acciones bajan debajo del título. */
 @media (max-width: 700px) {
   .page-heading { align-items: stretch; flex-direction: column; gap: 1.25rem; }
 }

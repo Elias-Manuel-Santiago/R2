@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import '../../components/Button/Button.css'
+// Reutiliza la presentación del 404 específico de una tarea.
 import '../TaskDetailPage/TaskDetailPage.css'
 
 function NotFoundPage() {

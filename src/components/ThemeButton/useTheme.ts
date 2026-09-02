@@ -13,6 +13,7 @@ function obtenerTemaInicial(): Tema {
 }
 
 export function useTema() {
+  // La función inicial sólo se consulta al crear el estado.
   const [tema, setTema] = useState<Tema>(obtenerTemaInicial);
 
   useEffect(() => {

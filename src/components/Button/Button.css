@@ -1,3 +1,4 @@
+/* Botón principal compartido por enlaces y acciones de formulario. */
 .button {
   display: inline-flex;
   min-height: 2.8rem;
@@ -19,5 +20,6 @@
 }
 .button:hover { background: var(--accent-hover); box-shadow: 6px 6px 0 var(--shadow); transform: translate(-2px, -2px); }
 .button:active { box-shadow: 2px 2px 0 var(--shadow); transform: translate(2px, 2px); }
+/* La variante secundaria reduce el énfasis sin cambiar dimensiones. */
 .button--secondary { color: var(--text); background: var(--surface); }
 .button--secondary:hover { background: var(--surface-muted); }

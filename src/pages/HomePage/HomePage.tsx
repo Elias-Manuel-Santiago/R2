@@ -6,6 +6,7 @@ import DeleteTaskButton from '../../components/DeleteTaskButton/DeleteTaskButton
 import { useTasks } from '../../context/TaskContext/useTasks'
 import type { Task } from '../../types/Task'
 import StatusBadge from '../../components/StatusBadge/StatusBadge'
+import TaskDataControls from '../../components/TaskDataControls/TaskDataControls'
 import { formatDueDate, isDueDateOverdue } from '../../utils/formatDate'
 import '../../components/Button/Button.css'
 import './HomePage.css'
@@ -17,19 +18,23 @@ function HomePage() {
   const highlightTimeoutRef = useRef<number | null>(null)
   const highlightFrameRef = useRef<number | null>(null)
   const { tasks, updateTaskStatus, deleteTask, clearCompletedTasks } = useTasks()
+  // Cada sección deriva de la misma lista, por lo que siempre refleja el estado actual.
   const pendingTasks = tasks.filter((task) => task.status === 'pending')
   const inProgressTasks = tasks.filter((task) => task.status === 'in-progress')
   const completedTasks = tasks.filter((task) => task.status === 'completed')
+  // Las fechas YYYY-MM-DD pueden ordenarse correctamente como texto.
   const upcomingTasks = tasks
     .filter((task) => task.status !== 'completed' && Boolean(task.dueDate))
     .sort((firstTask, secondTask) => firstTask.dueDate.localeCompare(secondTask.dueDate))
 
   useEffect(() => () => {
+    // Cancela animaciones pendientes si el usuario abandona la página.
     if (highlightTimeoutRef.current !== null) window.clearTimeout(highlightTimeoutRef.current)
     if (highlightFrameRef.current !== null) window.cancelAnimationFrame(highlightFrameRef.current)
   }, [])
 
   useEffect(() => {
+    // Otra página puede pedir que se localice una tarea enviando su ID en la navegación.
     const taskId = (location.state as { highlightTaskId?: string } | null)?.highlightTaskId
     if (!taskId) return
 
@@ -39,6 +44,7 @@ function HomePage() {
       taskElement?.focus({ preventScroll: true })
       setHighlightedTaskId(taskId)
       highlightTimeoutRef.current = window.setTimeout(() => setHighlightedTaskId(null), 900)
+      // Se consume el state para que el efecto no se repita al volver con el navegador.
       navigate(location.pathname, { replace: true, state: null })
     })
 
@@ -46,6 +52,7 @@ function HomePage() {
   }, [location.pathname, location.state, navigate])
 
   function scrollToTask(taskId: string) {
+    // La lista de entregas desplaza y enfoca la tarjeta relacionada.
     const taskElement = document.getElementById(`task-${taskId}`)
     taskElement?.scrollIntoView({ behavior: 'smooth', block: 'center' })
     taskElement?.focus({ preventScroll: true })
@@ -54,6 +61,7 @@ function HomePage() {
     if (highlightFrameRef.current !== null) window.cancelAnimationFrame(highlightFrameRef.current)
 
     setHighlightedTaskId(null)
+    // Dos frames garantizan que la clase se quite antes de reiniciar su animación.
     highlightFrameRef.current = window.requestAnimationFrame(() => {
       highlightFrameRef.current = window.requestAnimationFrame(() => {
         setHighlightedTaskId(taskId)
@@ -63,6 +71,7 @@ function HomePage() {
   }
 
   function renderTasks(sectionTasks: Task[], emptyMessage: string) {
+    // Reutiliza el mismo render para las tres columnas del tablero.
     if (sectionTasks.length === 0) return <p className="task-section__empty">{emptyMessage}</p>
 
     return (
@@ -85,8 +94,13 @@ function HomePage() {
       <PageHeading
         eyebrow={`${tasks.length} ${tasks.length === 1 ? 'tarea' : 'tareas'}`}
         title="Mis tareas"
-        description="Todo lo que necesitás hacer, reunido en un solo lugar."
-        actions={<Link className="button" to="/tareas/nueva">+ Nueva tarea</Link>}
+        description=""
+        actions={(
+          <div className="home-heading-actions">
+            <TaskDataControls />
+            <Link className="button" to="/tareas/nueva">+ Nueva tarea</Link>
+          </div>
+        )}
       />
 
       <section className="due-tasks" aria-labelledby="due-tasks-heading">
@@ -97,6 +111,7 @@ function HomePage() {
           </div>
           <strong>{upcomingTasks.length}</strong>
         </div>
+        {/* Las tareas vencidas siguen visibles, pero reciben un estilo de alerta. */}
         {upcomingTasks.length > 0 ? (
           <ul className="due-tasks__list">
             {upcomingTasks.map((task) => {
@@ -132,6 +147,7 @@ function HomePage() {
           {renderTasks(inProgressTasks, 'No hay tareas en proceso.')}
         </section>
 
+        {/* details permite plegar las completadas sin agregar otro estado React. */}
         <details className="completed-section">
           <summary>
             <span>✓ Completadas</span>

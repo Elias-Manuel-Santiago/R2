@@ -1,3 +1,4 @@
+/* Estructura base de una tarjeta; los modificadores cambian su estado visual. */
 .task-card {
   display: flex;
   width: 100%;
@@ -30,6 +31,7 @@
 .task-card:hover { box-shadow: 10px 10px 0 var(--shadow); transform: translate(-3px, -3px); }
 .task-card--due-highlight { animation: due-task-highlight 0.9s ease-in-out; }
 
+/* Destello usado al localizar una tarjeta desde la lista de entregas. */
 @keyframes due-task-highlight {
   0%, 50%, 100% {
     border-right-color: var(--border);
@@ -64,6 +66,7 @@
 }
 .task-card__due { display: block; margin-top: 1rem; font-size: 0.78rem; font-weight: 900; text-transform: uppercase; }
 .task-card__due--overdue { padding: 0.45rem 0.55rem; color: #fff; background: var(--accent); }
+/* Selector fijado al final de la tarjeta para cambiar el estado. */
 .task-card__status { display: flex; min-width: 0; align-items: center; gap: 0.75rem; margin-top: 1.4rem; padding-top: 1rem; border-top: 2px dashed var(--status-color, var(--accent)); }
 .task-card--pending { --status-color: var(--accent); }
 .task-card--in-progress { --status-color: var(--focus); }

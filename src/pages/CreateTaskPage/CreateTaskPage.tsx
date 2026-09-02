@@ -20,7 +20,9 @@ function CreateTaskPage() {
   const [duplicateExistingTaskId, setDuplicateExistingTaskId] = useState<string | null>(null)
   const duplicateTimeoutRef = useRef<number | null>(null)
   const duplicateFrameRef = useRef<number | null>(null)
+  // Se normaliza una vez por render para reutilizarlo en búsqueda y validación.
   const normalizedTitle = normalizeTitle(title)
+  // A partir de dos caracteres se muestran como máximo cinco coincidencias relevantes.
   const matchingTasks = normalizedTitle.length >= 2
     ? tasks
       .filter((task) => normalizeTitle(task.title).includes(normalizedTitle))
@@ -35,11 +37,13 @@ function CreateTaskPage() {
       })
       .slice(0, 5)
     : []
+  // Sólo una coincidencia exacta y todavía activa bloquea la creación.
   const duplicateTask = normalizedTitle
     ? tasks.find((task) => task.status !== 'completed' && normalizeTitle(task.title) === normalizedTitle)
     : undefined
 
   useEffect(() => () => {
+    // Limpia avisos y animaciones diferidas al salir de la página.
     if (duplicateTimeoutRef.current !== null) window.clearTimeout(duplicateTimeoutRef.current)
     if (duplicateFrameRef.current !== null) window.cancelAnimationFrame(duplicateFrameRef.current)
   }, [])
@@ -47,20 +51,24 @@ function CreateTaskPage() {
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
     if (duplicateTask) return
+    // addTask devuelve el ID recién creado para abrir inmediatamente su detalle.
     const newTask = addTask({ title: title.trim(), description: description.trim(), dueDate })
     navigate(`/tareas/${newTask.id}`)
   }
 
   function createQuickTask(quickTask: QuickTask) {
+    // Los atajos tampoco pueden crear otra copia de una tarea activa.
     const duplicate = tasks.find(
       (task) => task.status !== 'completed' && normalizeTitle(task.title) === normalizeTitle(quickTask.title),
     )
 
     if (duplicate) {
+      // Reinicia el aviso aunque el usuario pulse varias veces el mismo atajo.
       if (duplicateTimeoutRef.current !== null) window.clearTimeout(duplicateTimeoutRef.current)
       if (duplicateFrameRef.current !== null) window.cancelAnimationFrame(duplicateFrameRef.current)
       setDuplicateQuickTaskId(null)
       setDuplicateExistingTaskId(null)
+      // Los dos frames permiten volver a disparar la animación CSS.
       duplicateFrameRef.current = window.requestAnimationFrame(() => {
         duplicateFrameRef.current = window.requestAnimationFrame(() => {
           setDuplicateQuickTaskId(quickTask.id)
@@ -74,6 +82,7 @@ function CreateTaskPage() {
       return
     }
 
+    // Una tarea rápida siempre nace pendiente y sin fecha de entrega.
     const newTask = addTask({
       title: quickTask.title,
       description: quickTask.description,
@@ -103,6 +112,7 @@ function CreateTaskPage() {
           />
           <small>Máximo 80 caracteres.</small>
           {matchingTasks.length > 0 && (
+            // Las sugerencias permiten revisar tareas parecidas antes de guardar.
             <section className="task-suggestions" aria-labelledby="task-suggestions-heading">
               <div className="task-suggestions__heading">
                 <strong id="task-suggestions-heading">Tareas parecidas</strong>
@@ -155,6 +165,7 @@ function CreateTaskPage() {
             <p>Creá una nueva tarea pendiente con un solo toque y sin fecha de entrega.</p>
           </div>
 
+          {/* Los atajos se administran de forma independiente de las tareas creadas. */}
           {quickTasks.length > 0 ? (
             <ul className="quick-tasks__list">
               {quickTasks.map((quickTask) => {
@@ -184,6 +195,7 @@ function CreateTaskPage() {
                           aria-label={`Ver la tarea existente ${quickTask.title}`}
                           title="Ver la tarea existente"
                         >
+                          {/* El inicio usa este ID para desplazar y resaltar la tarea existente. */}
                           ?
                         </button>
                       </div>

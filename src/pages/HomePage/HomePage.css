@@ -1,3 +1,7 @@
+/* Acciones principales y controles del archivo de respaldo. */
+.home-heading-actions { display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: flex-end; gap: 0.75rem; }
+
+/* Resumen ordenado de todas las tareas activas que tienen vencimiento. */
 .due-tasks {
   margin-bottom: 2.5rem;
   padding: clamp(1rem, 3vw, 1.5rem);
@@ -19,6 +23,7 @@
 .due-task--overdue .status-badge { color: #fff; }
 .due-tasks__empty { margin: 0; padding: 1rem; font-weight: 700; text-align: center; }
 
+/* Tablero principal: una columna por estado en escritorio. */
 .task-board {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -81,6 +86,7 @@
   text-align: center;
 }
 
+/* Las completadas viven en un details plegable para reducir ruido visual. */
 .completed-section {
   min-width: 0;
   border: 3px solid var(--border);
@@ -110,7 +116,10 @@
 .completed-section .task-card__content h3 { text-decoration: line-through; }
 .completed-section .task-section__empty { margin-inline: 1.25rem; }
 
+/* El tablero se adapta de tres a dos y finalmente a una columna. */
 @media (max-width: 680px) {
+  .home-heading-actions { display: grid; width: 100%; grid-template-columns: 1fr; }
+  .home-heading-actions > .button { width: 100%; }
   .due-task { grid-template-columns: 1fr auto; }
   .due-task time { grid-column: 1 / -1; text-align: left; }
   .task-board { grid-template-columns: 1fr; }

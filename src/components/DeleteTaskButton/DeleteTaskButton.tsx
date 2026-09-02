@@ -22,12 +22,14 @@ function DeleteTaskButton({
   confirmLabel = 'Sí, eliminar',
   icon = '×',
 }: DeleteTaskButtonProps) {
+  // El estado React y la referencia mantienen sincronizado el diálogo nativo.
   const [isOpen, setIsOpen] = useState(false)
   const dialogRef = useRef<HTMLDialogElement>(null)
   const titleId = useId()
 
   useEffect(() => {
     const dialog = dialogRef.current
+    // showModal activa el fondo bloqueado y el manejo de foco del navegador.
     if (isOpen && dialog && !dialog.open) dialog.showModal()
   }, [isOpen])
 
@@ -37,6 +39,7 @@ function DeleteTaskButton({
   }
 
   function confirmDelete() {
+    // Se cierra primero para que el componente pueda desmontarse después sin problemas.
     closeDialog()
     onDelete()
   }
@@ -57,6 +60,7 @@ function DeleteTaskButton({
         ref={dialogRef}
         aria-labelledby={titleId}
         onCancel={(event) => {
+          // Escape usa la misma rutina de cierre que el botón Cancelar.
           event.preventDefault()
           closeDialog()
         }}

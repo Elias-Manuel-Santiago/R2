@@ -1,3 +1,4 @@
+/* Formulario principal y panel lateral de atajos. */
 .create-task-layout { display: grid; grid-template-columns: minmax(0, 1.45fr) minmax(320px, 0.75fr); align-items: start; gap: 2rem; }
 .task-form { min-width: 0; padding: clamp(1.25rem, 5vw, 2.5rem); border: 3px solid var(--border); border-radius: 4px; background: var(--surface); box-shadow: 9px 9px 0 var(--shadow); }
 .form-field { display: block; margin-bottom: 1.6rem; }
@@ -6,6 +7,7 @@
 .form-field input::placeholder, .form-field textarea::placeholder { color: var(--text); opacity: 0.55; }
 .form-field small { display: block; margin-top: 0.45rem; }
 .form-field input[aria-invalid="true"] { border-color: var(--accent); box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent) 35%, transparent); }
+/* Resultados similares que aparecen mientras se escribe el título. */
 .task-suggestions { margin-top: 0.85rem; border: 2px solid var(--border); background: var(--surface-muted); box-shadow: 4px 4px 0 var(--shadow); }
 .task-suggestions__heading { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; padding: 0.75rem 0.85rem; border-bottom: 2px dashed var(--accent); }
 .task-suggestions__heading strong { font-size: 0.82rem; text-transform: uppercase; }
@@ -24,6 +26,7 @@
 .form-check input { width: 1.25rem; height: 1.25rem; margin: 0.1rem 0 0; accent-color: var(--accent); }
 .form-check span { display: flex; flex-direction: column; gap: 0.2rem; line-height: 1.4; }
 .task-form__actions { display: flex; gap: 1rem; margin-top: 2rem; }
+/* Atajos persistentes para crear tareas frecuentes con un solo clic. */
 .quick-tasks { min-width: 0; padding: 1.25rem; border: 3px solid var(--border); border-radius: 4px; background: var(--surface); box-shadow: 7px 7px 0 var(--shadow); }
 .quick-tasks__heading { margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 2px dashed var(--accent); }
 .quick-tasks__heading > span { color: var(--accent); font-size: 0.72rem; font-weight: 900; letter-spacing: 0.08em; text-transform: uppercase; }
@@ -42,11 +45,13 @@
 .quick-task--duplicate { animation: quick-task-duplicate 0.6s ease-in-out; }
 .quick-tasks__empty { margin: 0; padding: 1.5rem 1rem; border: 2px dashed var(--border); background: var(--background); font-weight: 700; line-height: 1.55; text-align: center; }
 
+/* Alerta visual cuando un atajo intentaría duplicar una tarea activa. */
 @keyframes quick-task-duplicate {
   0%, 50%, 100% { border-color: var(--border); box-shadow: 4px 4px 0 var(--shadow); }
   25%, 75% { border-color: #ef3f34; box-shadow: 7px 7px 0 #ef3f34; }
 }
 
+/* El panel lateral baja debajo del formulario en tablet y móvil. */
 @media (max-width: 900px) {
   .create-task-layout { grid-template-columns: minmax(0, 1fr); }
 }

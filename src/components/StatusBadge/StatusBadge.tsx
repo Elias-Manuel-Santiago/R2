@@ -1,10 +1,11 @@
 import './StatusBadge.css'
 import type { TaskStatus } from '../../types/Task'
 
-const statusConfig: Record<TaskStatus, { icon: string; label: string }> = {
-  pending: { icon: '○', label: 'Pendiente' },
-  'in-progress': { icon: '◐', label: 'En proceso' },
-  completed: { icon: '✓', label: 'Completada' },
+// Relaciona cada valor interno con el texto que ve el usuario.
+const statusConfig: Record<TaskStatus, { label: string }> = {
+  pending: { label: 'Pendiente' },
+  'in-progress': { label: 'En proceso' },
+  completed: { label: 'Completada' },
 }
 
 function StatusBadge({ status }: { status: TaskStatus }) {
@@ -12,7 +13,6 @@ function StatusBadge({ status }: { status: TaskStatus }) {
 
   return (
     <span className={`status-badge status-badge--${status}`}>
-      <span aria-hidden="true">{config.icon}</span>
       {config.label}
     </span>
   )

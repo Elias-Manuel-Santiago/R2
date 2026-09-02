@@ -8,6 +8,7 @@ function Header() {
         <span aria-hidden="true">✓</span>Tareas
       </Link>
       <nav className="header__nav" aria-label="Navegación principal">
+        {/* NavLink agrega la clase active; end limita Inicio a la ruta exacta. */}
         <NavLink to="/" end>Inicio</NavLink>
         <NavLink to="/tareas/nueva">Nueva tarea</NavLink>
       </nav>

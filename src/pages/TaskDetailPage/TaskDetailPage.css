@@ -1,3 +1,4 @@
+/* Panel de detalle con metadatos en tres columnas. */
 .task-detail { padding: clamp(1.25rem, 5vw, 2.5rem); border: 3px solid var(--border); border-radius: 4px; background: var(--surface); box-shadow: 9px 9px 0 var(--shadow); }
 .task-detail__meta { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; padding-bottom: 1.5rem; border-bottom: 2px dashed var(--accent); }
 .task-detail__meta > div { display: flex; flex-direction: column; gap: 0.55rem; }
@@ -9,6 +10,7 @@
 .task-detail__due--overdue { padding: 0.75rem; color: #fff; background: var(--accent); }
 .task-detail__actions { display: flex; flex-wrap: wrap; gap: 1rem; }
 .task-detail__actions .button:disabled { opacity: 0.58; box-shadow: none; transform: none; cursor: default; }
+/* Presentación compartida por los errores 404 de ruta y de tarea. */
 .missing-task { max-width: 660px; margin-inline: auto; padding: 3rem clamp(1.25rem, 5vw, 3rem); border: 3px solid var(--border); text-align: center; background: var(--surface); box-shadow: 9px 9px 0 var(--shadow); }
 .missing-task__code { color: var(--accent); font-size: clamp(4rem, 18vw, 8rem); font-weight: 900; line-height: 0.8; }
 .missing-task h1 { margin: 1.5rem 0 0.75rem; text-transform: uppercase; }

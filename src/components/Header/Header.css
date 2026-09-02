@@ -1,3 +1,4 @@
+/* Cabecera flexible con marca a la izquierda y navegación a la derecha. */
 .header {
   display: flex;
   align-items: center;
@@ -36,6 +37,7 @@
   text-transform: uppercase;
 }
 .header__nav a:hover, .header__nav a.active { color: var(--surface); background: var(--accent); }
+/* En pantallas pequeñas la navegación ocupa una segunda fila completa. */
 @media (max-width: 520px) {
   .header { align-items: flex-start; flex-direction: column; }
   .header__nav { width: 100%; }

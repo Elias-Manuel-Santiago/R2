@@ -1,3 +1,4 @@
+/* El modificador de estado aplica el color semántico correspondiente. */
 .status-badge {
   display: inline-flex;
   align-items: center;

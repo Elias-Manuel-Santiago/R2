@@ -13,12 +13,14 @@ type TaskCardProps = {
 }
 
 function TaskCard({ task, onStatusChange, onDelete, isHighlighted = false }: TaskCardProps) {
+  // La tarjeta muestra un resumen; el texto completo queda disponible en el detalle.
   const descriptionPreview = task.description.length > 80
     ? `${task.description.slice(0, 80)}…`
     : task.description
 
   return (
     <li id={`task-${task.id}`} tabIndex={-1}>
+      {/* El estado y el resaltado agregan clases que controlan color y animación. */}
       <article className={`task-card task-card--${task.status}${isHighlighted ? ' task-card--due-highlight' : ''}`}>
         <div className="task-card__top">
           <StatusBadge status={task.status} />
@@ -31,6 +33,7 @@ function TaskCard({ task, onStatusChange, onDelete, isHighlighted = false }: Tas
           <h3>{task.title}</h3>
           <p>{descriptionPreview}</p>
           {task.dueDate ? (
+            // Una tarea completada conserva la fecha, pero deja de marcarse como atrasada.
             <time className={isDueDateOverdue(task.dueDate) && task.status !== 'completed' ? 'task-card__due task-card__due--overdue' : 'task-card__due'} dateTime={task.dueDate}>
               Entrega: {formatDueDate(task.dueDate)}
             </time>
@@ -38,6 +41,7 @@ function TaskCard({ task, onStatusChange, onDelete, isHighlighted = false }: Tas
         </Link>
         <label className="task-card__status">
           <span>Estado</span>
+          {/* El padre recibe el ID junto con el nuevo estado seleccionado. */}
           <select
             value={task.status}
             onChange={(event) => onStatusChange(task.id, event.target.value as TaskStatus)}

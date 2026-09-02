@@ -7,11 +7,13 @@ function ScrollTopButton() {
 
   useEffect(() => {
     function updateVisibility() {
+      // Se oculta cerca del inicio para no mostrar una acción innecesaria.
       setIsVisible(window.scrollY > 160)
     }
 
     updateVisibility()
     window.addEventListener('scroll', updateVisibility, { passive: true })
+    // El cleanup evita dejar listeners activos al desmontar el layout.
     return () => window.removeEventListener('scroll', updateVisibility)
   }, [])
 

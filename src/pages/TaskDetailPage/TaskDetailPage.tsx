@@ -13,12 +13,15 @@ function TaskDetailPage() {
   const { taskId } = useParams()
   const navigate = useNavigate()
   const { tasks, quickTasks, addQuickTask, updateTaskStatus, deleteTask } = useTasks()
+  // El parámetro de la URL identifica la tarea que debe mostrarse.
   const task = tasks.find((currentTask) => currentTask.id === taskId)
 
+  // Una URL válida también puede apuntar a una tarea eliminada o inexistente.
   if (!task) {
     return <section className="missing-task"><span className="missing-task__code">404</span><h1>Tarea no encontrada</h1><p>La tarea que buscás no existe o ya no está disponible.</p><Link className="button" to="/">Volver al inicio</Link></section>
   }
 
+  // Compara títulos normalizados para no duplicar atajos equivalentes.
   const isQuickTask = quickTasks.some(
     (quickTask) => normalizeTitle(quickTask.title) === normalizeTitle(task.title),
   )
@@ -50,6 +53,7 @@ function TaskDetailPage() {
         <div className="task-detail__description"><span>Descripción completa</span><p>{task.description}</p></div>
         <div className="task-detail__actions">
           <Link className="button button--secondary" to="/">← Volver a la lista</Link>
+          {/* Sólo las tareas sin fecha pueden convertirse en atajos reutilizables. */}
           <button
             className="button button--secondary"
             type="button"

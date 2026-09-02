@@ -8,7 +8,9 @@ function Layout() {
   return (
     <div className="layout">
       <Header />
+      {/* React Router reemplaza Outlet por la página correspondiente a la URL. */}
       <main className="layout__main"><Outlet /></main>
+      {/* Estas acciones flotantes permanecen disponibles en todas las páginas. */}
       <ScrollTopButton />
       <ThemeButton />
     </div>

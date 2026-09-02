@@ -3,6 +3,7 @@ import './ThemeButton.css'
 
 function ThemeButton() {
   const { tema, toggleTema } = useTema()
+  // Las ayudas de accesibilidad describen el modo al que cambiará el botón.
   const nextTheme = tema === 'dark' ? 'claro' : 'oscuro'
 
   return (
