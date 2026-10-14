@@ -25,7 +25,9 @@ function TaskCard({ task, onStatusChange, onDelete, isHighlighted = false }: Tas
         <div className="task-card__top">
           <StatusBadge status={task.status} />
           <div className="task-card__actions">
-            <DeleteTaskButton taskTitle={task.title} onDelete={() => onDelete(task.id)} compact />
+            {task.status === 'completed' && (
+              <DeleteTaskButton taskTitle={task.title} onDelete={() => onDelete(task.id)} compact />
+            )}
             <Link className="task-card__arrow" to={`/tareas/${task.id}`} aria-label={`Ver ${task.title}`}>→</Link>
           </div>
         </div>

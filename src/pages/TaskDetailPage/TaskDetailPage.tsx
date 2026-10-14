@@ -26,6 +26,7 @@ function TaskDetailPage() {
     (quickTask) => normalizeTitle(quickTask.title) === normalizeTitle(task.title),
   )
   const hasDueDate = Boolean(task.dueDate)
+  const canEdit = task.status !== 'completed'
 
   return (
     <section>
@@ -53,6 +54,7 @@ function TaskDetailPage() {
         <div className="task-detail__description"><span>Descripción completa</span><p>{task.description}</p></div>
         <div className="task-detail__actions">
           <Link className="button button--secondary" to="/">← Volver a la lista</Link>
+          {canEdit && <Link className="button" to={`/tareas/${task.id}/editar`}>Editar tarea</Link>}
           {/* Sólo las tareas sin fecha pueden convertirse en atajos reutilizables. */}
           <button
             className="button button--secondary"
@@ -67,7 +69,9 @@ function TaskDetailPage() {
                 ? '✓ Ya está en tareas rápidas'
                 : '⚡ Agregar a tareas rápidas'}
           </button>
-          <DeleteTaskButton taskTitle={task.title} onDelete={() => { deleteTask(task.id); navigate('/') }} />
+          {task.status === 'completed' && (
+            <DeleteTaskButton taskTitle={task.title} onDelete={() => { deleteTask(task.id); navigate('/') }} />
+          )}
         </div>
       </article>
     </section>

@@ -5,6 +5,7 @@ import CreateTaskPage from './pages/CreateTaskPage/CreateTaskPage'
 import HomePage from './pages/HomePage/HomePage'
 import NotFoundPage from './pages/NotFoundPage/NotFoundPage'
 import TaskDetailPage from './pages/TaskDetailPage/TaskDetailPage'
+import EditTaskPage from './pages/EditTaskPage/EditTaskPage'
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route element={<Layout />}>
           <Route path="/" element={<HomePage />} />
           <Route path="/tareas/nueva" element={<CreateTaskPage />} />
+          <Route path="/tareas/:taskId/editar" element={<EditTaskPage />} />
           <Route path="/tareas/:taskId" element={<TaskDetailPage />} />
           {/* Captura cualquier dirección que no coincida con las rutas anteriores. */}
           <Route path="*" element={<NotFoundPage />} />

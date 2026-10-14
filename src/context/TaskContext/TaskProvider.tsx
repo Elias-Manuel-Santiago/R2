@@ -1,5 +1,5 @@
 import { useState, type ReactNode } from 'react'
-import type { NewTask, QuickTask, Task, TaskStatus } from '../../types/Task'
+import type { NewTask, QuickTask, Task, TaskStatus, TaskUpdates } from '../../types/Task'
 import { normalizeTitle } from '../../utils/normalizeTitle'
 import { TaskContext } from './taskContextDefinition'
 
@@ -86,6 +86,24 @@ export function TaskProvider({ children }: { children: ReactNode }) {
     })
   }
 
+  function updateTask(taskId: string, taskData: TaskUpdates) {
+    setTasks((currentTasks) => {
+      const updatedTasks = currentTasks.map((task) => {
+        // Las tareas completadas se conservan como registro y no se pueden editar.
+        if (task.id !== taskId || task.status === 'completed') return task
+
+        return {
+          ...task,
+          ...taskData,
+          title: taskData.title.trim(),
+          description: taskData.description.trim() || 'Sin descripción',
+        }
+      })
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(updatedTasks))
+      return updatedTasks
+    })
+  }
+
   function addQuickTask(task: Task) {
     // Los atajos representan tareas reutilizables sin una fecha específica.
     if (task.dueDate) return false
@@ -119,7 +137,8 @@ export function TaskProvider({ children }: { children: ReactNode }) {
 
   function deleteTask(taskId: string) {
     setTasks((currentTasks) => {
-      const updatedTasks = currentTasks.filter((task) => task.id !== taskId)
+      // Sólo los elementos completados se pueden borrar, incluso si se invoca esta función fuera de la interfaz.
+      const updatedTasks = currentTasks.filter((task) => task.id !== taskId || task.status !== 'completed')
       localStorage.setItem(STORAGE_KEY, JSON.stringify(updatedTasks))
       return updatedTasks
     })
@@ -150,6 +169,7 @@ export function TaskProvider({ children }: { children: ReactNode }) {
       addQuickTask,
       removeQuickTask,
       updateTaskStatus,
+      updateTask,
       deleteTask,
       clearCompletedTasks,
       replaceTaskData,

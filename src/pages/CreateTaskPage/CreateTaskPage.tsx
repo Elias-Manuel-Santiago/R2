@@ -102,7 +102,7 @@ function CreateTaskPage() {
             id="task-title"
             type="text"
             value={title}
-            onChange={(event) => setTitle(event.target.value)}
+            onChange={(event) => setTitle(event.target.value)} 
             placeholder="Ej.: Estudiar React Router"
             maxLength={80}
             aria-invalid={Boolean(duplicateTask)}
